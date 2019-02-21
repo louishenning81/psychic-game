@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Question Game</title>
+</head>
+
+<body>
+
+  <h1>The Psychic Game!</h1>
+  <p>Guess what letter I'm thinking!</p>
+  <p id="wins"></p>
+  <p id="losses"></p>
+  <p id="GuessesLeft"></p>
+  <p id="GuessesSoFar:"></p>
+
+  <script type="text/javascript">
+     // VARIABLES
+    // ==========================================================================
+
+    var wins = 0;
+    var losses = 0;
+    var ties = 0;
+    var computerChoices = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+    var count = 0;
+    var wins = document.getElementById("wins");
+    var losses = document.getElementById("losses");
+    var GuessesLeft = document.getElementById("GuessesLeft");
+    var GuessesSoFar = document.getElementById("GuessesSoFar");
+
+    // FUNCTIONS
+    // ==============================================================================
+
+    var computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];
+
+    // MAIN PROCESS
+    // ==============================================================================
+    document.onkeyup = function(event) {
+
+// Determines which key was pressed.
+var userGuess = event.key;
+
+  // If they guess the correct answer, increase and update score, alert them they got it right.
+  if (userInput === questions[count].a) {
+          alert("Correct!");
+          score++;
+          updateScore();
+        }
+        // If wrong, alert them they are wrong.
+        else {
+          alert("Wrong!");
+        }
+
+        
+        // Display the user and computer guesses, and wins/losses/ties.
+        userChoiceText.textContent = "Your choices: " + userGuess;
+        computerChoiceText.textContent = "The computer chose: " + computerGuess;
+        winsText.textContent = "wins: " + wins;
+        lossesText.textContent = "losses: " + losses;
+        tiesText.textContent = "ties: " + ties;
+
+  </script>
+
+</body>
+
+</html>
