@@ -8,58 +8,74 @@
 
 <body>
 
-  <h1>The Psychic Game!</h1>
-  <p>Guess what letter I'm thinking!</p>
-  <p id="wins"></p>
-  <p id="losses"></p>
-  <p id="GuessesLeft"></p>
-  <p id="GuessesSoFar:"></p>
-
+  <div>
+      <h1>The Psychic Game!</h1>
+    <p>Guess what letter I'm thinking!</p>
+    <p id="wins"></p>
+    <p id="losses"></p>
+    <p id="GuessesLeft"></p>
+    <p id="userGuess:"></p>
+  </div>
   <script type="text/javascript">
      // VARIABLES
     // ==========================================================================
 
     var wins = 0;
     var losses = 0;
-    var ties = 0;
+    var GuessesLeft = 9;
+    var userGuess = []
     var computerChoices = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
-    var count = 0;
-    var wins = document.getElementById("wins");
-    var losses = document.getElementById("losses");
-    var GuessesLeft = document.getElementById("GuessesLeft");
-    var GuessesSoFar = document.getElementById("GuessesSoFar");
+    // var computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];
 
+    var winstext = document.getElementById("wins");
+    var lossestext = document.getElementById("losses");
+    var GuessesLefttext = document.getElementById("GuessesLeft");
+    var GuessesSoFartext = document.getElementById("GuessesSoFar");
+    var computerGuess = [];
     // FUNCTIONS
     // ==============================================================================
 
-    var computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];
+    window.onload = function() {
+	var compGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];
+	computerGuess.push(compGuess);
+	console.log(computerGuess[0]);
+}
 
     // MAIN PROCESS
     // ==============================================================================
     document.onkeyup = function(event) {
 
 // Determines which key was pressed.
-var userGuess = event.key;
+var userChoice = event.key;
+userGuess.push(userChoice);
+console.log(userGuess);
 
   // If they guess the correct answer, increase and update score, alert them they got it right.
-  if (userInput === questions[count].a) {
+  if ((userChoice === computerGuess) && (GuessesLeft > 0)) {
           alert("Correct!");
-          score++;
-          updateScore();
+          wins++;
+          GuessesLeft = 9;
+          GuessesSoFar=[]
+
         }
         // If wrong, alert them they are wrong.
-        else {
-          alert("Wrong!");
+        else if ((userGuess !== computerGuess) && (GuessesLeft > 0)) {
+          GuessesLeft--;
         }
+        else {
+          losses++;
+          GuessesLeft = 9;
+          GuessesSoFar=[]
+        
 
         
-        // Display the user and computer guesses, and wins/losses/ties.
-        userChoiceText.textContent = "Your choices: " + userGuess;
-        computerChoiceText.textContent = "The computer chose: " + computerGuess;
+        // Display the user and computer guesses, and wins/losses.
+        userGuess.textContent = "Your choices: " + userGuess;
+        GuessesLeftText.textContent = "You have" + GuessesLeft + "guesses left.";
         winsText.textContent = "wins: " + wins;
         lossesText.textContent = "losses: " + losses;
-        tiesText.textContent = "ties: " + ties;
-
+    }
+  }
   </script>
 
 </body>
