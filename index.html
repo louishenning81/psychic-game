@@ -4,78 +4,91 @@
 <head>
   <meta charset="UTF-8">
   <title>Question Game</title>
+
 </head>
 
 <body>
 
   <div>
-      <h1>The Psychic Game!</h1>
+    <h1>The Psychic Game!</h1>
     <p>Guess what letter I'm thinking!</p>
     <p id="wins"></p>
     <p id="losses"></p>
     <p id="GuessesLeft"></p>
-    <p id="userGuess:"></p>
+    <p id="GuessesSoFar"></p>
   </div>
-  <script type="text/javascript">
-     // VARIABLES
+  <script type="assets/javascript/game.js"></script>
+    // VARIABLES
     // ==========================================================================
 
     var wins = 0;
     var losses = 0;
     var GuessesLeft = 9;
-    var userGuess = []
+    var userChoice = []
     var computerChoices = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
     // var computerGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];
 
-    var winstext = document.getElementById("wins");
-    var lossestext = document.getElementById("losses");
-    var GuessesLefttext = document.getElementById("GuessesLeft");
-    var GuessesSoFartext = document.getElementById("GuessesSoFar");
-    var computerGuess = [];
+    var winsText = document.getElementById("wins");
+    var lossesText = document.getElementById("losses");
+    var GuessesLeftText = document.getElementById("GuessesLeft");
+    var userChoiceText = document.getElementById("GuessesSoFar");
+    var compGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];
+      console.log(compGuess);
     // FUNCTIONS
     // ==============================================================================
 
-    window.onload = function() {
-	var compGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];
-	computerGuess.push(compGuess);
-	console.log(computerGuess[0]);
-}
+
+
 
     // MAIN PROCESS
     // ==============================================================================
+    
+    
     document.onkeyup = function(event) {
 
-// Determines which key was pressed.
-var userChoice = event.key;
-userGuess.push(userChoice);
-console.log(userGuess);
+      // Determines which key was pressed.
+      var userGuess = event.key;
+      // userGuess.push(userChoice);
+      console.log(userGuess);
 
-  // If they guess the correct answer, increase and update score, alert them they got it right.
-  if ((userChoice === computerGuess) && (GuessesLeft > 0)) {
-          alert("Correct!");
-          wins++;
-          GuessesLeft = 9;
-          GuessesSoFar=[]
+      
 
-        }
-        // If wrong, alert them they are wrong.
-        else if ((userGuess !== computerGuess) && (GuessesLeft > 0)) {
-          GuessesLeft--;
-        }
-        else {
-          losses++;
-          GuessesLeft = 9;
-          GuessesSoFar=[]
-        
 
-        
+      // If they guess the correct answer, increase and update score, alert them they got it right.
+      if (userGuess === compGuess && (GuessesLeft > 1)) {
+        computerChoices.indexOf(userGuess) >= 0;
+        alert("Correct!");
+        wins++;
+        GuessesLeft = 9;
+        compGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];
+        userChoice = [];
+        console.log(compGuess);
+
+      }
+      // If wrong, alert them they are wrong.
+      else if ((userGuess !== compGuess) && (GuessesLeft > 1)) {
+        computerChoices.indexOf(userGuess) >= 0;
+        GuessesLeft--;
+        userChoice.push(userGuess);
+      }
+      else {
+        alert("You Lose");
+        losses++;
+        GuessesLeft = 9;
+        compGuess = computerChoices[Math.floor(Math.random() * computerChoices.length)];
+        userChoice = [];
+        console.log(compGuess);
+
+
+
         // Display the user and computer guesses, and wins/losses.
-        userGuess.textContent = "Your choices: " + userGuess;
-        GuessesLeftText.textContent = "You have" + GuessesLeft + "guesses left.";
-        winsText.textContent = "wins: " + wins;
-        lossesText.textContent = "losses: " + losses;
+
+      }
+      userChoiceText.textContent = "Your choices: " + userChoice;
+      GuessesLeftText.textContent = "You have " + GuessesLeft + " guesses left.";
+      winsText.textContent = "wins: " + wins;
+      lossesText.textContent = "losses: " + losses;
     }
-  }
   </script>
 
 </body>
