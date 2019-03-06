@@ -68,4 +68,4 @@
       winsText.textContent = "wins: " + wins;
       lossesText.textContent = "losses: " + losses;
     }
-  </script>
+  
